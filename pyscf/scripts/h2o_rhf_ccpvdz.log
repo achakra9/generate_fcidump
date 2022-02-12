@@ -1,0 +1,221 @@
+#INFO: **** input file is /Users/arnab/MSU/for_github/generate_fcidump/pyscf/scripts/run_rhf.py ****
+## This is a basic python script to run a RHF calculation
+## on H2O using PySCF
+
+#!/usr/bin/env python
+from pyscf import gto, scf
+
+mol = gto.Mole()
+mol.atom = '''
+    O  0  0  0
+    H  0  1  0
+    H  0  0  1'''
+mol.unit = 'B'
+mol.basis = {'O': 'cc-pvdz', 'H': 'cc-pvdz'}
+mol.symmetry = True
+#mol.symmetry_subgroup = "C2"
+mol.spin=0
+mol.charge=0
+# mol.max_memory = 1000
+mol.verbose=4
+mol.build()
+
+mf = scf.RHF(mol)
+mf.diis_space = 5
+mf.kernel()
+print("RHF Calculation over.")
+print("---------------------")
+mf.dip_moment()
+print("Calculationo of dipole moments done")
+print("------------------------")
+mf.analyze()
+print("Analyze done")
+print("-----------------")
+mf.mulliken_pop()
+print("Mulliken population calculation done")
+print("-----------------------")
+g = mf.Gradients()
+g.kernel()
+print("Gradient calculation done.")
+print("Done")
+
+#INFO: ******************** input file end ********************
+
+
+System: uname_result(system='Darwin', node='Arnabs-MacBook-Pro.local', release='21.2.0', version='Darwin Kernel Version 21.2.0: Sun Nov 28 20:28:54 PST 2021; root:xnu-8019.61.5~1/RELEASE_X86_64', machine='x86_64', processor='i386')  Threads 1
+Python 3.8.8 (default, Apr 13 2021, 12:59:45) 
+[Clang 10.0.0 ]
+numpy 1.20.1  scipy 1.6.2
+Date: Fri Feb 11 21:25:58 2022
+PySCF version 2.0.1
+PySCF path  /opt/anaconda3/lib/python3.8/site-packages/pyscf
+
+[CONFIG] conf_file None
+[INPUT] verbose = 4
+[INPUT] num. atoms = 3
+[INPUT] num. electrons = 10
+[INPUT] charge = 0
+[INPUT] spin (= nelec alpha-beta = 2S) = 0
+[INPUT] symmetry True subgroup None
+[INPUT] Mole.unit = B
+[INPUT]  1 O      0.000000000000   0.000000000000   0.000000000000 AA    0.000000000000   0.000000000000   0.000000000000 Bohr
+[INPUT]  2 H      0.000000000000   0.529177210920   0.000000000000 AA    0.000000000000   1.000000000000   0.000000000000 Bohr
+[INPUT]  3 H      0.000000000000   0.000000000000   0.529177210920 AA    0.000000000000   0.000000000000   1.000000000000 Bohr
+
+nuclear repulsion = 16.7071067811865
+point group symmetry = C2v
+num. orbitals of irrep A1 = 11
+num. orbitals of irrep A2 = 2
+num. orbitals of irrep B1 = 7
+num. orbitals of irrep B2 = 4
+number of shells = 11
+number of NR pGTOs = 40
+number of NR cGTOs = 24
+basis = {'O': 'cc-pvdz', 'H': 'cc-pvdz'}
+ecp = {}
+CPU time:         0.57
+
+
+******** <class 'pyscf.scf.hf_symm.SymAdaptedRHF'> ********
+method = SymAdaptedRHF-RHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 5
+SCF conv_tol = 1e-09
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /var/folders/79/_jmtw35d26b_3pp5jf6l2ypm0000gn/T/tmptke4g6tv
+max_memory 1000 MB (current use 0 MB)
+Freeze 0 electrons in irreps []
+    10 free electrons in irreps A1 A2 B1 B2
+Set gradient conv threshold to 3.16228e-05
+init E= -76.128303355102
+HOMO (B2) = -0.724924240226295  LUMO (A1) = 0.146500178367237
+cycle= 1 E= -74.7146531649628  delta_E= 1.41  |g|= 0.62  |ddm|= 1.99
+HOMO (B2) = -0.4720428960665  LUMO (A1) = 0.230293076685498
+cycle= 2 E= -74.7660607284014  delta_E= -0.0514  |g|= 0.235  |ddm|= 0.579
+HOMO (B2) = -0.561702690907202  LUMO (A1) = 0.223776959022336
+cycle= 3 E= -74.7735640050048  delta_E= -0.0075  |g|= 0.0256  |ddm|= 0.132
+HOMO (B2) = -0.557423881635607  LUMO (A1) = 0.224017756679304
+cycle= 4 E= -74.7737683192067  delta_E= -0.000204  |g|= 0.00431  |ddm|= 0.0304
+HOMO (B2) = -0.558547253779077  LUMO (A1) = 0.223434419231203
+cycle= 5 E= -74.7737736400268  delta_E= -5.32e-06  |g|= 0.000697  |ddm|= 0.00467
+HOMO (B2) = -0.558437215052797  LUMO (A1) = 0.22341432403158
+cycle= 6 E= -74.7737738954716  delta_E= -2.55e-07  |g|= 8.11e-05  |ddm|= 0.00121
+HOMO (B2) = -0.558419783748772  LUMO (A1) = 0.223421584681811
+cycle= 7 E= -74.7737738977034  delta_E= -2.23e-09  |g|= 1.34e-05  |ddm|= 9.92e-05
+HOMO (B2) = -0.558416934093479  LUMO (A1) = 0.223422555925146
+cycle= 8 E= -74.7737738977633  delta_E= -5.98e-11  |g|= 1.74e-06  |ddm|= 1.79e-05
+HOMO (B2) = -0.558416789342553  LUMO (A1) = 0.223422467434363
+Extra cycle  E= -74.7737738977638  delta_E= -5.68e-13  |g|= 5.14e-07  |ddm|= 1.59e-06
+converged SCF energy = -74.7737738977638
+Dipole moment(X, Y, Z, Debye):  0.00000,  1.26823,  1.26823
+**** SCF Summaries ****
+Total Energy =                         -74.773773897763846
+Nuclear Repulsion Energy =              16.707106781186546
+One-electron Energy =                 -134.134514758193433
+Two-electron Energy =                   42.653634079243041
+Wave-function symmetry = A1
+occupancy for each irrep:     A1   A2   B1   B2
+                               3    0    1    1
+**** MO energy ****
+MO #1 (A1 #1), energy= -20.5070082222685 occ= 2
+MO #2 (A1 #2), energy= -1.73080558965712 occ= 2
+MO #3 (B1 #1), energy= -0.936404865914407 occ= 2
+MO #4 (A1 #3), energy= -0.680986967337287 occ= 2
+MO #5 (B2 #1), energy= -0.558416789342553 occ= 2
+MO #6 (A1 #4), energy= 0.223422467434363 occ= 0
+MO #7 (B1 #2), energy= 0.284514262349012 occ= 0
+MO #8 (A1 #5), energy= 0.974164847536268 occ= 0
+MO #9 (B2 #2), energy= 1.03121823127003 occ= 0
+MO #10 (B1 #3), energy= 1.04812924834427 occ= 0
+MO #11 (B1 #4), energy= 1.43269310666166 occ= 0
+MO #12 (A1 #6), energy= 1.49171608113369 occ= 0
+MO #13 (A1 #7), energy= 1.62813098575596 occ= 0
+MO #14 (A2 #1), energy= 1.72759775487787 occ= 0
+MO #15 (A1 #8), energy= 1.98233935643917 occ= 0
+MO #16 (B2 #3), energy= 1.9900595758557 occ= 0
+MO #17 (B1 #5), energy= 2.69497095127383 occ= 0
+MO #18 (B1 #6), energy= 3.41916366517146 occ= 0
+MO #19 (A1 #9), energy= 3.62276450769527 occ= 0
+MO #20 (B2 #4), energy= 3.7760540765454 occ= 0
+MO #21 (A2 #2), energy= 3.79715976478705 occ= 0
+MO #22 (A1 #10), energy= 3.91606086868269 occ= 0
+MO #23 (B1 #7), energy= 5.95435881711707 occ= 0
+MO #24 (A1 #11), energy= 6.58863271967676 occ= 0
+ ** Mulliken pop on meta-lowdin orthogonal AOs  **
+ ** Mulliken pop  **
+pop of  0 O 1s        1.99997
+pop of  0 O 2s        1.37372
+pop of  0 O 3s        0.01267
+pop of  0 O 2px       1.99070
+pop of  0 O 2py       1.72436
+pop of  0 O 2pz       1.72436
+pop of  0 O 3px       0.00003
+pop of  0 O 3py       0.03993
+pop of  0 O 3pz       0.03993
+pop of  0 O 3dxy      0.00245
+pop of  0 O 3dyz      0.00392
+pop of  0 O 3dz^2     0.02195
+pop of  0 O 3dxz      0.00245
+pop of  0 O 3dx2-y2    0.01982
+pop of  1 H 1s        0.49825
+pop of  1 H 2s        0.01992
+pop of  1 H 2px       0.00219
+pop of  1 H 2py       0.00024
+pop of  1 H 2pz       0.00128
+pop of  2 H 1s        0.49825
+pop of  2 H 2s        0.01992
+pop of  2 H 2px       0.00219
+pop of  2 H 2py       0.00128
+pop of  2 H 2pz       0.00024
+ ** Mulliken atomic charges  **
+charge of  0O =     -0.95625
+charge of  1H =      0.47813
+charge of  2H =      0.47813
+Dipole moment(X, Y, Z, Debye):  0.00000,  1.26823,  1.26823
+ ** Mulliken pop  **
+pop of  0 O 1s        2.01109
+pop of  0 O 2s        0.78505
+pop of  0 O 3s        0.30264
+pop of  0 O 2px       1.16798
+pop of  0 O 2py       1.13845
+pop of  0 O 2pz       1.13845
+pop of  0 O 3px       0.72713
+pop of  0 O 3py       0.24580
+pop of  0 O 3pz       0.24580
+pop of  0 O 3dxy      0.00219
+pop of  0 O 3dyz      0.00419
+pop of  0 O 3dz^2     0.02092
+pop of  0 O 3dxz      0.00219
+pop of  0 O 3dx2-y2    0.01194
+pop of  1 H 1s        0.99241
+pop of  1 H 2s        0.04896
+pop of  1 H 2px       0.05025
+pop of  1 H 2py       0.00663
+pop of  1 H 2pz      -0.00017
+pop of  2 H 1s        0.99241
+pop of  2 H 2s        0.04896
+pop of  2 H 2px       0.05025
+pop of  2 H 2py      -0.00017
+pop of  2 H 2pz       0.00663
+ ** Mulliken atomic charges  **
+charge of  0O =      0.19617
+charge of  1H =     -0.09808
+charge of  2H =     -0.09808
+
+
+******** <class 'pyscf.grad.rhf.Gradients'> for <class 'pyscf.scf.hf_symm.SymAdaptedRHF'> ********
+unit = Eh/Bohr
+max_memory 1000 MB (current use 0 MB)
+--------------- SymAdaptedRHF gradients ---------------
+         x                y                z
+0 O     0.0000000000     2.5563039090     2.5563039090
+1 H    -0.0000000000    -2.6926893769     0.1363854679
+2 H     0.0000000000     0.1363854679    -2.6926893769
+----------------------------------------------
